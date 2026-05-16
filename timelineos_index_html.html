@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TimelineOS</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#f5f5f2;
+  --text:#0b0b0b;
+  --muted:#666;
+  --line:rgba(0,0,0,.08);
+  --card:#ffffff;
+  --shadow:0 10px 30px rgba(0,0,0,.05);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left, rgba(0,0,0,.03), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0,0,0,.03), transparent 30%);
+  pointer-events:none;
+}
+
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:rgba(245,245,242,.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  z-index:1000;
+}
+
+.logo{
+  text-decoration:none;
+  color:var(--text);
+  display:flex;
+  align-items:baseline;
+}
+
+.logo-main{
+  font-family:Georgia, serif;
+  font-size:1.7rem;
+  letter-spacing:-.04em;
+}
+
+.logo-os{
+  font-family:"Times New Roman", serif;
+  font-style:italic;
+  font-size:2rem;
+  margin-left:2px;
+}
+
+.menu-btn{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:white;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.4s var(--ease);
+}
+
+.menu-btn:hover{
+  transform:scale(1.05);
+}
+
+.burger{
+  width:18px;
+  height:12px;
+  position:relative;
+}
+
+.burger span{
+  position:absolute;
+  width:100%;
+  height:1.5px;
+  background:black;
+  left:0;
+  transition:.4s var(--ease);
+}
+
+.burger span:nth-child(1){top:0;}
+.burger span:nth-child(2){top:5px;}
+.burger span:nth-child(3){top:10px;}
+
+.menu-btn.active span:nth-child(1){
+  top:5px;
+  transform:rotate(45deg);
+}
+
+.menu-btn.active span:nth-child(2){
+  opacity:0;
+}
+
+.menu-btn.active span:nth-child(3){
+  top:5px;
+  transform:rotate(-45deg);
+}
+
+.menu{
+  position:fixed;
+  inset:0;
+  background:#f5f5f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.5s var(--ease);
+  z-index:999;
+}
+
+.menu.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.menu ul{
+  list-style:none;
+  text-align:center;
+}
+
+.menu ul li{
+  margin:20px 0;
+}
+
+.menu ul li a{
+  text-decoration:none;
+  color:black;
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-family:Georgia, serif;
+  transition:.3s;
+}
+
+.menu ul li a:hover{
+  letter-spacing:2px;
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:120px 28px 60px;
+}
+
+.hero-content{
+  max-width:1000px;
+}
+
+.eyebrow{
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+
+.hero-title{
+  font-family:Georgia, serif;
+  font-size:clamp(4rem,14vw,10rem);
+  line-height:.9;
+  letter-spacing:-.08em;
+  margin-bottom:24px;
+}
+
+.hero-title .os{
+  font-style:italic;
+}
+
+.hero-sub{
+  max-width:620px;
+  font-size:clamp(1rem,2vw,1.4rem);
+  line-height:1.8;
+  color:#444;
+  margin-bottom:32px;
+  font-family:Georgia, serif;
+}
+
+.hero-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.tag{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:white;
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  transition:.3s;
+}
+
+.tag:hover{
+  transform:translateY(-3px);
+}
+
+.section{
+  padding:90px 28px;
+  max-width:1200px;
+  margin:auto;
+}
+
+.section-line{
+  width:100%;
+  height:1px;
+  background:var(--line);
+  margin-bottom:40px;
+}
+
+.section-label{
+  font-size:.75rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-family:Georgia, serif;
+  font-size:clamp(2rem,5vw,4rem);
+  margin-bottom:32px;
+  letter-spacing:-.04em;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  transition:.4s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(0,0,0,.03), transparent 40%);
+  opacity:0;
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card:hover::before{
+  opacity:1;
+}
+
+.card-meta{
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+.card h3{
+  font-family:Georgia, serif;
+  font-size:1.6rem;
+  margin-bottom:16px;
+  font-weight:400;
+}
+
+.card p{
+  color:#444;
+  line-height:1.8;
+}
+
+.mission-box{
+  padding:50px;
+  border-radius:32px;
+}
+
+.mission-text{
+  font-family:Georgia, serif;
+  font-size:clamp(2rem,6vw,5rem);
+  line-height:1.1;
+  letter-spacing:-.06em;
+}
+
+.mission-text em{
+  font-style:italic;
+}
+
+.timeline-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+
+.timeline-card{
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.month{
+  font-family:Georgia, serif;
+  font-size:2.4rem;
+}
+
+.arrow{
+  font-size:1.2rem;
+  align-self:flex-end;
+  transition:.3s;
+}
+
+.timeline-card:hover .arrow{
+  transform:translate(4px,-4px);
+}
+
+.footer-card{
+  text-align:center;
+}
+
+.footer-quote{
+  font-family:Georgia, serif;
+  font-size:clamp(1.2rem,3vw,2rem);
+  margin-bottom:14px;
+}
+
+.footer-small{
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s var(--ease);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:700px){
+  .header{
+    padding:0 18px;
+  }
+
+  .hero{
+    padding:110px 22px 40px;
+  }
+
+  .section{
+    padding:70px 22px;
+  }
+
+  .mission-box{
+    padding:34px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="#" class="logo">
+    <span class="logo-main">Timeline</span>
+    <span class="logo-os">OS</span>
+  </a>
+
+  <button class="menu-btn" id="menuBtn">
+    <div class="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</header>
+
+<div class="menu" id="menu">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <div class="hero-content reveal">
+    <div class="eyebrow">A personal archive of growth</div>
+
+    <h1 class="hero-title">
+      Timeline<span class="os">OS</span>
+    </h1>
+
+    <p class="hero-sub">
+      A living timeline of projects, milestones, experiments, failures, and the quiet work of becoming.
+    </p>
+
+    <div class="hero-tags">
+      <div class="tag">Black & White</div>
+      <div class="tag">Creative</div>
+      <div class="tag">Minimal</div>
+      <div class="tag">Evolving</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-line"></div>
+
+  <div class="section-label">About TimelineOS</div>
+  <h2 class="section-title reveal">Not a blog. Not a portfolio.</h2>
+
+  <div class="grid">
+    <div class="card reveal">
+      <div class="card-meta">The Idea</div>
+      <h3>A public archive</h3>
+      <p>
+        TimelineOS is a timeline of growth, projects, learning, failures, milestones, and ideas documented honestly over time.
+      </p>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-meta">The Style</div>
+      <h3>Minimal but alive</h3>
+      <p>
+        Clean black-and-white visuals, creative typography, soft motion, and elegant sections instead of noisy content.
+      </p>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-meta">The Goal</div>
+      <h3>Make growth visible</h3>
+      <p>
+        Over time the archive grows month by month into a visible record of becoming.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-line"></div>
+
+  <div class="section-label">About Me</div>
+  <h2 class="section-title reveal">Learning in public.</h2>
+
+  <div class="card reveal">
+    <div class="card-meta">Satya</div>
+    <h3>A student building slowly.</h3>
+    <p>
+      Through code, projects, systems, and experiments — this site becomes proof that the work was done even when no one was watching.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="goals">
+  <div class="section-line"></div>
+
+  <div class="section-label">Mission</div>
+
+  <div class="card mission-box reveal">
+    <div class="mission-text">
+      Learn deeply.<br>
+      Build consistently.<br>
+      <em>Document honestly.</em>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-line"></div>
+
+  <div class="section-label">Goals</div>
+  <h2 class="section-title reveal">What stays important</h2>
+
+  <div class="grid">
+    <div class="card reveal">
+      <div class="card-meta">01</div>
+      <h3>Learn Python deeply</h3>
+      <p>Not just syntax, but real problem solving and systems thinking.</p>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-meta">02</div>
+      <h3>Build meaningful things</h3>
+      <p>Projects, tools, experiments, games, and systems that slowly improve over time.</p>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-meta">03</div>
+      <h3>Document the journey</h3>
+      <p>Every month becomes part of the archive instead of disappearing from memory.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="timeline">
+  <div class="section-line"></div>
+
+  <div class="section-label">Future Timeline</div>
+  <h2 class="section-title reveal">Upcoming Pages</h2>
+
+  <div class="timeline-grid">
+    <div class="card timeline-card reveal">
+      <div>
+        <div class="card-meta">2026</div>
+        <div class="month">May</div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+
+    <div class="card timeline-card reveal">
+      <div>
+        <div class="card-meta">2026</div>
+        <div class="month">June</div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+
+    <div class="card timeline-card reveal">
+      <div>
+        <div class="card-meta">Archive</div>
+        <div class="month">TwoKTwoSix</div>
+      </div>
+      <div class="arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card footer-card reveal">
+    <div class="footer-quote">
+      Built slowly. Updated continuously.
+    </div>
+
+    <div class="footer-small">
+      TimelineOS · Personal Archive
+    </div>
+  </div>
+</section>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const menu = document.getElementById('menu');
+
+menuBtn.addEventListener('click', ()=>{
+  menuBtn.classList.toggle('active');
+  menu.classList.toggle('active');
+});
+
+const reveals = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+},{threshold:.12});
+
+reveals.forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
