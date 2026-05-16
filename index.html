@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TimelineOS</title>
-
-<style>
+<title>TimelineOS</title><style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
 *{
   margin:0;
@@ -56,33 +53,44 @@ body::before{
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
-  background:rgba(245,245,242,.9);
+  background:#0b0b0b;
   backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
+  border-bottom:1px solid rgba(255,255,255,.08);
   z-index:1000;
 }
 
 .logo{
+  align-items:center;
+  gap:12px;
   text-decoration:none;
   color:var(--text);
   display:flex;
   align-items:baseline;
 }
 
-.logo-main{
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.7rem;
-  letter-spacing:-.04em;
+.logo-wrap{
+  background:#151515;
+  border-radius:18px;
+  padding:8px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.logo-os{
-  font-family:"Times New Roman", serif;
-  font-style:italic;
-  font-size:2rem;
-  margin-left:2px;
+.logo-icon{
+  width:28px;
+  height:28px;
+  object-fit:contain;
+}
+
+.logo-text{
+  height:34px;
+  width:auto;
+  object-fit:contain;
 }
 
 .menu-btn{
+  background:#151515;
   width:44px;
   height:44px;
   border-radius:50%;
@@ -109,7 +117,7 @@ body::before{
   position:absolute;
   width:100%;
   height:1.5px;
-  background:black;
+  background:white;
   left:0;
   transition:.4s var(--ease);
 }
@@ -161,7 +169,7 @@ body::before{
 
 .menu ul li a{
   text-decoration:none;
-  color:black;
+  color:white;
   font-size:clamp(2.5rem,8vw,5rem);
   font-family:'Cormorant Garamond', serif;
   transition:.3s;
@@ -175,7 +183,7 @@ body::before{
   min-height:100vh;
   display:flex;
   align-items:center;
-  padding:120px 28px 60px;
+  padding:110px 28px 30px;
 }
 
 .hero-content{
@@ -233,7 +241,7 @@ body::before{
 }
 
 .section{
-  padding:90px 28px;
+  padding:60px 28px;
   max-width:1200px;
   margin:auto;
 }
@@ -360,6 +368,11 @@ body::before{
 }
 
 .footer-card{
+  background:#111;
+  color:white;
+  border:none;
+  padding:40px;
+  overflow:hidden;
   text-align:center;
 }
 
@@ -367,6 +380,21 @@ body::before{
   font-family:'Cormorant Garamond', serif;
   font-size:clamp(1.2rem,3vw,2rem);
   margin-bottom:14px;
+}
+
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.footer-links span{
+  opacity:.7;
+  font-size:.8rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
 }
 
 .footer-small{
@@ -449,202 +477,163 @@ animation:pageSlide .8s var(--ease);
   }
 
   .hero{
-    padding:110px 22px 40px;
+    padding:100px 22px 18px;
   }
 
   .section{
-    padding:70px 22px;
+    padding:42px 22px;
   }
 
   .mission-box{
     padding:34px;
   }
 }
-</style>
-</head>
+</style></head>
 <body>
-<div class="page-transition" id="pageTransition"></div>
-
-<header class="header">
+<div class="page-transition" id="pageTransition"></div><header class="header">
   <a href="#" class="logo">
-    <span class="logo-main">Timeline</span>
-    <span class="logo-os">OS</span>
-  </a>
-
-  <button class="menu-btn" id="menuBtn">
+  <div class="logo-wrap">
+    <img src="/assets/icon.png" alt="TimelineOS Icon" class="logo-icon">
+    <img src="/assets/logo.png" alt="TimelineOS" class="logo-text">
+  </div>
+</a>  <button class="menu-btn" id="menuBtn">
     <div class="burger">
       <span></span>
       <span></span>
       <span></span>
     </div>
   </button>
-</header>
-
-<div class="menu" id="menu">
+</header><div class="menu" id="menu">
   <ul>
     <li><a href="#">Home</a></li>
     <li><a href="#timeline">Timeline</a></li>
     <li><a href="#goals">Goals</a></li>
     <li><a href="#about">About</a></li>
   </ul>
+</div><section class="hero">
+  <div class="hero-content reveal">
+    <div class="eyebrow">A personal archive of growth</div><h1 class="hero-title">
+  Timeline<span class="os">OS</span>
+</h1>
+
+<p class="hero-sub">
+  A small internet space by Satya to save projects, random wins, experiments, failures, and moments that actually mattered.
+</p>
+
+<div class="hero-tags">
+  <div class="tag">Black & White</div>
+  <div class="tag">Creative</div>
+  <div class="tag">Minimal</div>
+  <div class="tag">Evolving</div>
 </div>
 
-<section class="hero">
-  <div class="hero-content reveal">
-    <div class="eyebrow">A personal archive of growth</div>
-
-    <h1 class="hero-title">
-      Timeline<span class="os">OS</span>
-    </h1>
-
-    <p class="hero-sub">
-      A living timeline of projects, milestones, experiments, failures, and the quiet work of becoming.
-    </p>
-
-    <div class="hero-tags">
-      <div class="tag">Black & White</div>
-      <div class="tag">Creative</div>
-      <div class="tag">Minimal</div>
-      <div class="tag">Evolving</div>
-    </div>
   </div>
-</section>
-
-<section class="section" id="about">
-  <div class="section-line"></div>
-
-  <div class="section-label">About TimelineOS</div>
-  <h2 class="section-title reveal">Not a blog. Not a portfolio.</h2>
-
-  <div class="grid">
+</section><section class="section" id="about">
+  <div class="section-line"></div>  <div class="section-label">About TimelineOS</div>
+  <h2 class="section-title reveal">Not a blog. Not a portfolio.</h2>  <div class="grid">
     <div class="card reveal">
       <div class="card-meta">The Idea</div>
       <h3>A public archive</h3>
       <p>
-        TimelineOS is a timeline of growth, projects, learning, failures, milestones, and ideas documented honestly over time.
+        TimelineOS is basically my internet memory system. A place where I can save progress, projects, lessons, random experiments, and things I don't want to forget later.
       </p>
-    </div>
+    </div><div class="card reveal">
+  <div class="card-meta">The Style</div>
+  <h3>Minimal but alive</h3>
+  <p>
+    I wanted the website to feel clean and creative without looking too corporate or overdesigned.
+  </p>
+</div>
 
-    <div class="card reveal">
-      <div class="card-meta">The Style</div>
-      <h3>Minimal but alive</h3>
-      <p>
-        Clean black-and-white visuals, creative typography, soft motion, and elegant sections instead of noisy content.
-      </p>
-    </div>
+<div class="card reveal">
+  <div class="card-meta">The Goal</div>
+  <h3>Make growth visible</h3>
+  <p>
+    Hopefully after a few years this turns into a real archive of growth instead of just another abandoned project.
+  </p>
+</div>
 
-    <div class="card reveal">
-      <div class="card-meta">The Goal</div>
-      <h3>Make growth visible</h3>
-      <p>
-        Over time the archive grows month by month into a visible record of becoming.
-      </p>
-    </div>
   </div>
-</section>
-
-<section class="section">
-  <div class="section-line"></div>
-
-  <div class="section-label">About Me</div>
-  <h2 class="section-title reveal">Learning in public.</h2>
-
-  <div class="card reveal">
+</section><section class="section">
+  <div class="section-line"></div>  <div class="section-label">About Me</div>
+  <h2 class="section-title reveal">Learning in public.</h2>  <div class="card reveal">
     <div class="card-meta">Satya</div>
-    <h3>A student building slowly.</h3>
+    <h3>Just a student trying to build things.</h3>
     <p>
-      Through code, projects, systems, and experiments — this site becomes proof that the work was done even when no one was watching.
+      I'm still learning most of this stuff while building the site. That's kind of the point of TimelineOS honestly.
     </p>
   </div>
-</section>
-
-<section class="section" id="goals">
-  <div class="section-line"></div>
-
-  <div class="section-label">Mission</div>
-
-  <div class="card mission-box reveal">
+</section><section class="section" id="goals">
+  <div class="section-line"></div>  <div class="section-label">Mission</div>  <div class="card mission-box reveal">
     <div class="mission-text">
       Learn deeply.<br>
       Build consistently.<br>
       <em>Document honestly.</em>
     </div>
   </div>
-</section>
-
-<section class="section">
-  <div class="section-line"></div>
-
-  <div class="section-label">Goals</div>
-  <h2 class="section-title reveal">What stays important</h2>
-
-  <div class="grid">
+</section><section class="section">
+  <div class="section-line"></div>  <div class="section-label">Goals</div>
+  <h2 class="section-title reveal">What stays important</h2>  <div class="grid">
     <div class="card reveal">
       <div class="card-meta">01</div>
       <h3>Learn Python deeply</h3>
       <p>Not just syntax, but real problem solving and systems thinking.</p>
-    </div>
+    </div><div class="card reveal">
+  <div class="card-meta">02</div>
+  <h3>Build meaningful things</h3>
+  <p>Projects, tools, experiments, games, and systems that slowly improve over time.</p>
+</div>
 
-    <div class="card reveal">
-      <div class="card-meta">02</div>
-      <h3>Build meaningful things</h3>
-      <p>Projects, tools, experiments, games, and systems that slowly improve over time.</p>
-    </div>
+<div class="card reveal">
+  <div class="card-meta">03</div>
+  <h3>Document the journey</h3>
+  <p>Every month becomes part of the archive instead of disappearing from memory.</p>
+</div>
 
-    <div class="card reveal">
-      <div class="card-meta">03</div>
-      <h3>Document the journey</h3>
-      <p>Every month becomes part of the archive instead of disappearing from memory.</p>
-    </div>
   </div>
-</section>
-
-<section class="section" id="timeline">
-  <div class="section-line"></div>
-
-  <div class="section-label">Future Timeline</div>
-  <h2 class="section-title reveal">Upcoming Pages</h2>
-
-  <div class="timeline-grid">
+</section><section class="section" id="timeline">
+  <div class="section-line"></div>  <div class="section-label">Future Timeline</div>
+  <h2 class="section-title reveal">Upcoming Pages</h2>  <div class="timeline-grid">
     <div class="card timeline-card reveal">
       <div>
         <div class="card-meta">2026</div>
         <div class="month">May</div>
       </div>
       <div class="arrow">↗</div>
-    </div>
-
-    <div class="card timeline-card reveal">
-      <div>
-        <div class="card-meta">2026</div>
-        <div class="month">June</div>
-      </div>
-      <div class="arrow">↗</div>
-    </div>
-
-    <div class="card timeline-card reveal">
-      <div>
-        <div class="card-meta">Archive</div>
-        <div class="month">TwoKTwoSix</div>
-      </div>
-      <div class="arrow">↗</div>
-    </div>
+    </div><div class="card timeline-card reveal">
+  <div>
+    <div class="card-meta">2026</div>
+    <div class="month">June</div>
   </div>
-</section>
+  <div class="arrow">↗</div>
+</div>
 
-<section class="section">
+<div class="card timeline-card reveal">
+  <div>
+    <div class="card-meta">Archive</div>
+    <div class="month">TwoKTwoSix</div>
+  </div>
+  <div class="arrow">↗</div>
+</div>
+
+  </div>
+</section><section class="section">
   <div class="card footer-card reveal">
     <div class="footer-quote">
-      Built slowly. Updated continuously.
-    </div>
+      Still building. Still learning.
+    </div><div class="footer-small">
+  Made by Satya · TimelineOS
+</div>
 
-    <div class="footer-small">
-      TimelineOS · Personal Archive
-    </div>
+<div class="footer-links">
+  <span>Archive</span>
+  <span>Projects</span>
+  <span>2026</span>
+  <span>Learning in Public</span>
+</div>
+
   </div>
-</section>
-
-<script>
+</section><script>
 const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 
@@ -682,8 +671,5 @@ const observer = new IntersectionObserver(entries=>{
 },{threshold:.12});
 
 reveals.forEach(el=>observer.observe(el));
-</script>
-
-</body>
+</script></body>
   </html>
-  
