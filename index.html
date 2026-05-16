@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TimelineOS</title>
-
-<link rel="icon" type="image/png" href="assets/icon.png">
-<link rel="apple-touch-icon" href="assets/icon.png">
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
+<title>TimelineOS</title><link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
 
 *{
   margin:0;
@@ -19,30 +11,55 @@
   box-sizing:border-box;
 }
 
+:root{
+  --bg:#f5f5f2;
+  --text:#0b0b0b;
+  --muted:#6b6b6b;
+  --line:rgba(0,0,0,.08);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
 html{
   scroll-behavior:smooth;
 }
 
 body{
-  background:#f5f5f2;
-  color:#0b0b0b;
+  background:var(--bg);
+  color:var(--text);
   font-family:'Inter',sans-serif;
   overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
+  position:relative;
 }
 
-/* HEADER */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/noise.png");
+  opacity:.03;
+  pointer-events:none;
+}
+
+.progress-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:0%;
+  height:2px;
+  background:black;
+  z-index:2000;
+}
 
 .header{
   position:fixed;
   top:0;
   left:0;
   width:100%;
-  height:74px;
+  height:64px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 20px;
+  padding:0 18px;
   background:#000;
   border-bottom:1px solid rgba(255,255,255,.08);
   z-index:1000;
@@ -55,29 +72,26 @@ body{
 }
 
 .main-logo{
-  height:38px;
+  height:48px;
   width:auto;
-  display:block;
   object-fit:contain;
 }
 
-/* MENU BUTTON */
-
 .menu-btn{
-  width:46px;
-  height:46px;
+  width:48px;
+  height:48px;
   border-radius:50%;
   border:none;
   background:white;
-  cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:.3s ease;
+  cursor:pointer;
+  transition:.4s var(--ease);
 }
 
 .menu-btn:hover{
-  transform:scale(1.05);
+  transform:scale(1.05) rotate(3deg);
 }
 
 .burger{
@@ -92,34 +106,24 @@ body{
   height:1.5px;
   background:black;
   left:0;
-  transition:.4s ease;
+  transition:.4s;
 }
 
-.burger span:nth-child(1){
-  top:0;
-}
-
-.burger span:nth-child(2){
-  top:5px;
-}
-
-.burger span:nth-child(3){
-  top:10px;
-}
-
-/* NAVIGATION */
+.burger span:nth-child(1){top:0;}
+.burger span:nth-child(2){top:5px;}
+.burger span:nth-child(3){top:10px;}
 
 .menu{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.96);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(16px);
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   pointer-events:none;
-  transition:.5s ease;
+  transition:.5s var(--ease);
   z-index:999;
 }
 
@@ -134,49 +138,60 @@ body{
 }
 
 .menu ul li{
-  margin:20px 0;
+  margin:22px 0;
 }
 
 .menu ul li a{
-  text-decoration:none;
   color:white;
-  font-size:clamp(2.5rem,8vw,5rem);
+  text-decoration:none;
+  font-size:clamp(2.8rem,9vw,6rem);
   font-family:'Cormorant Garamond',serif;
-  transition:.3s;
+  transition:.35s;
 }
 
 .menu ul li a:hover{
   opacity:.7;
-  letter-spacing:2px;
+  letter-spacing:3px;
 }
-
-/* HERO */
 
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  padding:110px 24px 40px;
+  padding:100px 24px 30px;
+  position:relative;
+}
+
+.hero::after{
+  content:"ARCHIVE SYSTEM";
+  position:absolute;
+  right:-60px;
+  top:50%;
+  transform:rotate(90deg);
+  letter-spacing:.4em;
+  font-size:.7rem;
+  color:rgba(0,0,0,.2);
 }
 
 .hero-content{
-  max-width:1000px;
+  max-width:950px;
 }
 
 .eyebrow{
   font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:#666;
-  margin-bottom:24px;
+  color:var(--muted);
+  margin-bottom:20px;
 }
 
 .hero-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(4rem,14vw,10rem);
+  font-size:clamp(4.5rem,16vw,10rem);
   line-height:.88;
   letter-spacing:-.08em;
-  margin-bottom:24px;
+  margin-bottom:22px;
+  animation:float 5s ease-in-out infinite alternate;
 }
 
 .hero-title .os{
@@ -184,11 +199,11 @@ body{
 }
 
 .hero-sub{
-  max-width:620px;
+  max-width:640px;
   font-size:clamp(1rem,2vw,1.3rem);
-  line-height:1.8;
+  line-height:1.9;
   color:#444;
-  margin-bottom:32px;
+  margin-bottom:28px;
   font-family:'Cormorant Garamond',serif;
 }
 
@@ -201,17 +216,16 @@ body{
 .tag{
   padding:10px 14px;
   border-radius:999px;
-  border:1px solid rgba(0,0,0,.08);
-  background:white;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(8px);
   font-size:.7rem;
   letter-spacing:.18em;
   text-transform:uppercase;
 }
 
-/* SECTIONS */
-
 .section{
-  padding:60px 24px;
+  padding:55px 24px;
   max-width:1200px;
   margin:auto;
 }
@@ -219,23 +233,23 @@ body{
 .section-line{
   width:100%;
   height:1px;
-  background:rgba(0,0,0,.08);
-  margin-bottom:40px;
+  background:var(--line);
+  margin-bottom:34px;
 }
 
 .section-label{
-  font-size:.75rem;
-  letter-spacing:.28em;
+  font-size:.72rem;
+  letter-spacing:.3em;
   text-transform:uppercase;
-  color:#666;
-  margin-bottom:18px;
+  color:var(--muted);
+  margin-bottom:16px;
 }
 
 .section-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,5vw,4rem);
-  margin-bottom:32px;
-  letter-spacing:-.04em;
+  font-size:clamp(2.2rem,6vw,4rem);
+  margin-bottom:28px;
+  letter-spacing:-.05em;
 }
 
 .grid{
@@ -244,32 +258,46 @@ body{
   gap:20px;
 }
 
-/* CARDS */
-
 .card{
-  background:white;
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:28px;
-  padding:28px;
-  transition:.4s ease;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:30px;
+  padding:30px;
+  backdrop-filter:blur(14px);
+  transition:.45s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,.6), transparent 40%);
+  opacity:0;
+  transition:.4s;
 }
 
 .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 15px 40px rgba(0,0,0,.06);
+  transform:translateY(-8px);
+  box-shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+.card:hover::before{
+  opacity:1;
 }
 
 .card-meta{
   font-size:.7rem;
-  letter-spacing:.22em;
+  letter-spacing:.24em;
   text-transform:uppercase;
-  color:#666;
+  color:var(--muted);
   margin-bottom:16px;
 }
 
 .card h3{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.8rem;
+  font-size:1.9rem;
   margin-bottom:16px;
   font-weight:500;
 }
@@ -279,33 +307,25 @@ body{
   line-height:1.8;
 }
 
-/* MISSION */
-
 .mission-box{
-  padding:50px;
+  padding:48px;
 }
 
 .mission-text{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,6vw,5rem);
+  font-size:clamp(2rem,7vw,5rem);
   line-height:1.08;
   letter-spacing:-.06em;
 }
 
-.mission-text em{
-  font-style:italic;
-}
-
-/* TIMELINE */
-
 .timeline-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:18px;
 }
 
 .timeline-card{
-  min-height:220px;
+  min-height:260px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -313,412 +333,284 @@ body{
 
 .month{
   font-family:'Cormorant Garamond',serif;
-  font-size:2.5rem;
+  font-size:3rem;
 }
 
 .arrow{
-  font-size:1.2rem;
   align-self:flex-end;
+  font-size:1.3rem;
 }
 
-/* FOOTER */
+.status-box{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:20px;
+  padding:16px 18px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  width:fit-content;
+  background:rgba(255,255,255,.7);
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:black;
+  animation:pulse 1.5s infinite;
+}
 
 .footer-card{
   background:#000;
   color:white;
   text-align:center;
   border:none;
-  padding:40px;
+  padding:50px 30px;
+  overflow:hidden;
+  position:relative;
+}
+
+.footer-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 30%);
 }
 
 .footer-quote{
+  position:relative;
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.2rem,3vw,2rem);
+  font-size:clamp(1.4rem,4vw,2.4rem);
   margin-bottom:14px;
 }
 
 .footer-small{
-  font-size:.7rem;
-  letter-spacing:.22em;
+  position:relative;
+  font-size:.72rem;
+  letter-spacing:.24em;
   text-transform:uppercase;
-  opacity:.7;
+  opacity:.75;
 }
 
 .footer-links{
+  position:relative;
   display:flex;
   justify-content:center;
-  gap:18px;
   flex-wrap:wrap;
-  margin-top:24px;
+  gap:18px;
+  margin-top:28px;
 }
 
 .footer-links span{
-  opacity:.6;
+  opacity:.65;
   font-size:.75rem;
-  letter-spacing:.16em;
+  letter-spacing:.18em;
   text-transform:uppercase;
 }
 
-/* MOBILE */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s var(--ease);
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@keyframes float{
+  from{transform:translateY(0px);} 
+  to{transform:translateY(-8px);} 
+}
+
+@keyframes pulse{
+  0%{opacity:1;transform:scale(1);} 
+  50%{opacity:.4;transform:scale(.8);} 
+  100%{opacity:1;transform:scale(1);} 
+}
 
 @media(max-width:700px){
 
-  .header{
-    height:68px;
-    padding:0 16px;
-  }
-
-  .main-logo{
-    height:34px;
-  }
-
   .hero{
-    padding:100px 20px 20px;
+    padding:90px 20px 18px;
   }
 
   .section{
-    padding:42px 20px;
+    padding:40px 20px;
   }
 
   .mission-box{
     padding:34px;
   }
 
-  .menu ul li a{
-    font-size:3rem;
+  .hero::after{
+    display:none;
+  }
+
+  .main-logo{
+    height:42px;
   }
 
 }
 
-</style>
-</head>
-
-<body>
-
-<header class="header">
-
-  <a href="#" class="logo">
-    <img src="assets/logo.png" alt="TimelineOS" class="main-logo">
-  </a>
-
-  <button class="menu-btn" id="menuBtn">
-
-    <div class="burger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-  </button>
-
-</header>
-
-<div class="menu" id="menu">
-
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#timeline">Timeline</a></li>
-    <li><a href="#goals">Goals</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
-
+</style></head>
+<body><div class="progress-bar" id="progressBar"></div><header class="header"><a href="#" class="logo">
+<img src="assets/logo.png" alt="TimelineOS" class="main-logo">
+</a><button class="menu-btn" id="menuBtn">
+<div class="burger">
+<span></span>
+<span></span>
+<span></span>
 </div>
-
-<section class="hero">
-
-  <div class="hero-content">
-
-    <div class="eyebrow">
-      A personal archive of growth
-    </div>
-
-    <h1 class="hero-title">
-      Timeline<span class="os">OS</span>
-    </h1>
-
-    <p class="hero-sub">
-      A small internet space by Satya to save projects, random wins, experiments, failures, and moments that actually mattered.
-    </p>
-
-    <div class="hero-tags">
-      <div class="tag">Black & White</div>
-      <div class="tag">Creative</div>
-      <div class="tag">Minimal</div>
-      <div class="tag">Evolving</div>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="about">
-
-  <div class="section-line"></div>
-
-  <div class="section-label">
-    About TimelineOS
-  </div>
-
-  <h2 class="section-title">
-    Not a blog. Not a portfolio.
-  </h2>
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-meta">
-        The Idea
-      </div>
-
-      <h3>
-        My internet memory system
-      </h3>
-
-      <p>
-        TimelineOS is basically a place where I can save progress, projects, lessons, random experiments, and things I don't want to forget later.
-      </p>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-meta">
-        The Style
-      </div>
-
-      <h3>
-        Minimal but alive
-      </h3>
-
-      <p>
-        I wanted the website to feel clean and creative without looking too corporate or overdesigned.
-      </p>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-meta">
-        The Goal
-      </div>
-
-      <h3>
-        Make growth visible
-      </h3>
-
-      <p>
-        Hopefully after a few years this turns into a real archive of growth instead of another abandoned project.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="section-line"></div>
-
-  <div class="section-label">
-    About Me
-  </div>
-
-  <h2 class="section-title">
-    Learning in public.
-  </h2>
-
-  <div class="card">
-
-    <div class="card-meta">
-      Satya
-    </div>
-
-    <h3>
-      Just a student trying to build things.
-    </h3>
-
-    <p>
-      I'm still learning most of this stuff while building the site. That's honestly the point of TimelineOS.
-    </p>
-
-  </div>
-
-</section>
-
-<section class="section" id="goals">
-
-  <div class="section-line"></div>
-
-  <div class="section-label">
-    Mission
-  </div>
-
-  <div class="card mission-box">
-
-    <div class="mission-text">
-      Learn deeply.<br>
-      Build consistently.<br>
-      <em>Document honestly.</em>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="section-line"></div>
-
-  <div class="section-label">
-    Goals
-  </div>
-
-  <h2 class="section-title">
-    What stays important
-  </h2>
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-meta">
-        01
-      </div>
-
-      <h3>
-        Learn Python deeply
-      </h3>
-
-      <p>
-        Not just syntax, but real projects and problem solving.
-      </p>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-meta">
-        02
-      </div>
-
-      <h3>
-        Build meaningful things
-      </h3>
-
-      <p>
-        Apps, systems, games, experiments, and ideas that slowly improve over time.
-      </p>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-meta">
-        03
-      </div>
-
-      <h3>
-        Document the journey
-      </h3>
-
-      <p>
-        Every month becomes part of the archive instead of disappearing from memory.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section" id="timeline">
-
-  <div class="section-line"></div>
-
-  <div class="section-label">
-    Future Timeline
-  </div>
-
-  <h2 class="section-title">
-    Upcoming Pages
-  </h2>
-
-  <div class="timeline-grid">
-
-    <div class="card timeline-card">
-
-      <div>
-        <div class="card-meta">2026</div>
-        <div class="month">May</div>
-      </div>
-
-      <div class="arrow">↗</div>
-
-    </div>
-
-    <div class="card timeline-card">
-
-      <div>
-        <div class="card-meta">2026</div>
-        <div class="month">June</div>
-      </div>
-
-      <div class="arrow">↗</div>
-
-    </div>
-
-    <div class="card timeline-card">
-
-      <div>
-        <div class="card-meta">Archive</div>
-        <div class="month">TwoKTwoSix</div>
-      </div>
-
-      <div class="arrow">↗</div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-
-  <div class="footer-card">
-
-    <div class="footer-quote">
-      Still building. Still learning.
-    </div>
-
-    <div class="footer-small">
-      Made by Satya · TimelineOS
-    </div>
-
-    <div class="footer-links">
-      <span>Archive</span>
-      <span>Projects</span>
-      <span>2026</span>
-      <span>Learning in Public</span>
-    </div>
-
-  </div>
-
-</section>
-
-<script>
+</button></header><div class="menu" id="menu">
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#timeline">Timeline</a></li>
+<li><a href="#goals">Goals</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+</div><section class="hero">
+<div class="hero-content reveal"><div class="eyebrow">A personal archive by Satya</div><h1 class="hero-title">
+Timeline<span class="os">OS</span>
+</h1><p class="hero-sub">
+A small internet space to save projects, experiments, failures, late-night ideas, random wins, and the process of slowly becoming better over time.
+</p><div class="hero-tags">
+<div class="tag">Black & White</div>
+<div class="tag">Learning In Public</div>
+<div class="tag">Creative Archive</div>
+<div class="tag">Version 0.1</div>
+</div><div class="status-box">
+<div class="dot"></div>
+<div>Currently learning: Python + Web Building</div>
+</div></div>
+</section><section class="section reveal" id="about">
+<div class="section-line"></div>
+<div class="section-label">About TimelineOS</div>
+<h2 class="section-title">Not a portfolio. More like a memory system.</h2><div class="grid"><div class="card">
+<div class="card-meta">The Idea</div>
+<h3>Save the journey.</h3>
+<p>
+Most things disappear after some time. TimelineOS exists so projects, lessons, screenshots, thoughts, and moments actually stay somewhere.
+</p>
+</div><div class="card">
+<div class="card-meta">The Style</div>
+<h3>Minimal but human.</h3>
+<p>
+I didn't want this website to feel corporate or AI-generated. Just clean, creative, and personal.
+</p>
+</div><div class="card">
+<div class="card-meta">The Goal</div>
+<h3>Visible growth over years.</h3>
+<p>
+Hopefully this archive becomes more valuable with time instead of dying after a few months.
+</p>
+</div></div>
+</section><section class="section reveal">
+<div class="section-line"></div>
+<div class="section-label">About Me</div>
+<h2 class="section-title">Still figuring things out honestly.</h2><div class="card">
+<div class="card-meta">Satya</div>
+<h3>Just a student trying to build things.</h3>
+<p>
+I'm learning most of this while making it. That's probably the whole point of TimelineOS.
+</p>
+</div>
+</section><section class="section reveal" id="goals">
+<div class="section-line"></div>
+<div class="section-label">Mission</div><div class="card mission-box">
+<div class="mission-text">
+Learn deeply.<br>
+Build consistently.<br>
+<em>Document honestly.</em>
+</div>
+</div>
+</section><section class="section reveal">
+<div class="section-line"></div>
+<div class="section-label">Goals</div>
+<h2 class="section-title">Things that matter right now.</h2><div class="grid"><div class="card">
+<div class="card-meta">01</div>
+<h3>Learn Python properly</h3>
+<p>
+Not just syntax. Real projects, systems, and problem solving.
+</p>
+</div><div class="card">
+<div class="card-meta">02</div>
+<h3>Build meaningful projects</h3>
+<p>
+Games, websites, systems, experiments, weird ideas.
+</p>
+</div><div class="card">
+<div class="card-meta">03</div>
+<h3>Keep the archive alive</h3>
+<p>
+Even small progress deserves documentation.
+</p>
+</div></div>
+</section><section class="section reveal" id="timeline">
+<div class="section-line"></div>
+<div class="section-label">Timeline</div>
+<h2 class="section-title">Upcoming archive pages.</h2><div class="timeline-grid"><div class="card timeline-card">
+<div>
+<div class="card-meta">2026</div>
+<div class="month">May</div>
+</div>
+<div class="arrow">↗</div>
+</div><div class="card timeline-card">
+<div>
+<div class="card-meta">2026</div>
+<div class="month">June</div>
+</div>
+<div class="arrow">↗</div>
+</div><div class="card timeline-card">
+<div>
+<div class="card-meta">Archive</div>
+<div class="month">TwoKTwoSix</div>
+</div>
+<div class="arrow">↗</div>
+</div></div>
+</section><section class="section reveal">
+<div class="footer-card">
+<div class="footer-quote">
+Still building. Still learning.
+</div><div class="footer-small">
+Made by Satya · TimelineOS
+</div><div class="footer-links">
+<span>Archive</span>
+<span>Projects</span>
+<span>2026</span>
+<span>Learning In Public</span>
+</div>
+</div>
+</section><script>
 
 const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
+const progressBar = document.getElementById('progressBar');
 
 menuBtn.addEventListener('click',()=>{
-
-  menu.classList.toggle('active');
-
+menu.classList.toggle('active');
 });
 
-</script>
+window.addEventListener('scroll',()=>{
+const scrollTop = window.scrollY;
+const docHeight = document.body.scrollHeight - window.innerHeight;
+const progress = (scrollTop / docHeight) * 100;
+progressBar.style.width = progress + '%';
+});
 
-</body>
+const reveals = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('active');
+}
+});
+},{threshold:.12});
+
+reveals.forEach(el=>observer.observe(el));
+
+</script></body>
   </html>
