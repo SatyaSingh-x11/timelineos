@@ -1,24 +1,22 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>TimelineOS</title>
-<link rel="icon" type="image/png" href="/assets/icon.png"><style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-}
-
-:root{
-  --bg:#f5f5f2;
-  --text:#0b0b0b;
-  --muted:#666;
-  --line:rgba(0,0,0,.08);
-  --card:#ffffff;
-  --shadow:0 10px 30px rgba(0,0,0,.05);
-  --ease:cubic-bezier(.16,1,.3,1);
 }
 
 html{
@@ -26,23 +24,14 @@ html{
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter', sans-serif;
+  background:#f5f5f2;
+  color:#0b0b0b;
+  font-family:'Inter',sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at top left, rgba(0,0,0,.03), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(0,0,0,.03), transparent 30%);
-  pointer-events:none;
-  animation:bgFloat 12s ease-in-out infinite alternate;
-}
+/* HEADER */
 
 .header{
   position:fixed;
@@ -53,58 +42,38 @@ body::before{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 28px;
-  background:#0b0b0b;
-  backdrop-filter:blur(12px);
+  padding:0 20px;
+  background:#000;
   border-bottom:1px solid rgba(255,255,255,.08);
   z-index:1000;
 }
 
 .logo{
+  display:flex;
   align-items:center;
-  gap:12px;
   text-decoration:none;
-  color:var(--text);
-  display:flex;
-  align-items:baseline;
 }
 
-.logo-wrap{
-  min-height:50px;
-  background:#151515;
-  border-radius:18px;
-  padding:8px 14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo-icon{
-  display:block;
-  width:30px;
-  height:30px;
-  object-fit:contain;
-}
-
-.logo-text{
-  display:block;
-  height:26px;
+.main-logo{
+  height:38px;
   width:auto;
+  display:block;
   object-fit:contain;
 }
+
+/* MENU BUTTON */
 
 .menu-btn{
-  background:#ffffff;
-  width:44px;
-  height:44px;
+  width:46px;
+  height:46px;
   border-radius:50%;
-  border:1px solid var(--line);
-  background:#ffffff;
+  border:none;
+  background:white;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:.4s var(--ease);
+  transition:.3s ease;
 }
 
 .menu-btn:hover{
@@ -121,40 +90,36 @@ body::before{
   position:absolute;
   width:100%;
   height:1.5px;
-  background:#111;
+  background:black;
   left:0;
-  transition:.4s var(--ease);
+  transition:.4s ease;
 }
 
-.burger span:nth-child(1){top:0;}
-.burger span:nth-child(2){top:5px;}
-.burger span:nth-child(3){top:10px;}
+.burger span:nth-child(1){
+  top:0;
+}
 
-.menu-btn.active span:nth-child(1){
+.burger span:nth-child(2){
   top:5px;
-  transform:rotate(45deg);
 }
 
-.menu-btn.active span:nth-child(2){
-  opacity:0;
+.burger span:nth-child(3){
+  top:10px;
 }
 
-.menu-btn.active span:nth-child(3){
-  top:5px;
-  transform:rotate(-45deg);
-}
+/* NAVIGATION */
 
 .menu{
   position:fixed;
   inset:0;
-  background:rgba(11,11,11,.96);
+  background:rgba(0,0,0,.96);
   backdrop-filter:blur(12px);
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   pointer-events:none;
-  transition:.5s var(--ease);
+  transition:.5s ease;
   z-index:999;
 }
 
@@ -174,22 +139,24 @@ body::before{
 
 .menu ul li a{
   text-decoration:none;
-  color:#f5f5f2;
+  color:white;
   font-size:clamp(2.5rem,8vw,5rem);
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
   transition:.3s;
 }
 
 .menu ul li a:hover{
-  color:#ffffff;
+  opacity:.7;
   letter-spacing:2px;
 }
+
+/* HERO */
 
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  padding:110px 28px 30px;
+  padding:110px 24px 40px;
 }
 
 .hero-content{
@@ -200,14 +167,14 @@ body::before{
   font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#666;
   margin-bottom:24px;
 }
 
 .hero-title{
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
   font-size:clamp(4rem,14vw,10rem);
-  line-height:.9;
+  line-height:.88;
   letter-spacing:-.08em;
   margin-bottom:24px;
 }
@@ -218,11 +185,11 @@ body::before{
 
 .hero-sub{
   max-width:620px;
-  font-size:clamp(1rem,2vw,1.4rem);
+  font-size:clamp(1rem,2vw,1.3rem);
   line-height:1.8;
   color:#444;
   margin-bottom:32px;
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
 }
 
 .hero-tags{
@@ -234,20 +201,17 @@ body::before{
 .tag{
   padding:10px 14px;
   border-radius:999px;
-  border:1px solid var(--line);
+  border:1px solid rgba(0,0,0,.08);
   background:white;
   font-size:.7rem;
   letter-spacing:.18em;
   text-transform:uppercase;
-  transition:.3s;
 }
 
-.tag:hover{
-  transform:translateY(-3px);
-}
+/* SECTIONS */
 
 .section{
-  padding:60px 28px;
+  padding:60px 24px;
   max-width:1200px;
   margin:auto;
 }
@@ -255,7 +219,7 @@ body::before{
 .section-line{
   width:100%;
   height:1px;
-  background:var(--line);
+  background:rgba(0,0,0,.08);
   margin-bottom:40px;
 }
 
@@ -263,12 +227,12 @@ body::before{
   font-size:.75rem;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#666;
   margin-bottom:18px;
 }
 
 .section-title{
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
   font-size:clamp(2rem,5vw,4rem);
   margin-bottom:32px;
   letter-spacing:-.04em;
@@ -280,48 +244,34 @@ body::before{
   gap:20px;
 }
 
+/* CARDS */
+
 .card{
-  background:var(--card);
-  border:1px solid var(--line);
+  background:white;
+  border:1px solid rgba(0,0,0,.08);
   border-radius:28px;
   padding:28px;
-  box-shadow:var(--shadow);
-  transition:.4s var(--ease);
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg, rgba(0,0,0,.03), transparent 40%);
-  opacity:0;
-  transition:.4s;
+  transition:.4s ease;
 }
 
 .card:hover{
-  box-shadow:0 20px 50px rgba(0,0,0,.08);
   transform:translateY(-6px);
-}
-
-.card:hover::before{
-  opacity:1;
+  box-shadow:0 15px 40px rgba(0,0,0,.06);
 }
 
 .card-meta{
   font-size:.7rem;
   letter-spacing:.22em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#666;
   margin-bottom:16px;
 }
 
 .card h3{
-  font-family:'Cormorant Garamond', serif;
-  font-size:1.6rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;
   margin-bottom:16px;
-  font-weight:400;
+  font-weight:500;
 }
 
 .card p{
@@ -329,21 +279,24 @@ body::before{
   line-height:1.8;
 }
 
+/* MISSION */
+
 .mission-box{
   padding:50px;
-  border-radius:32px;
 }
 
 .mission-text{
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
   font-size:clamp(2rem,6vw,5rem);
-  line-height:1.1;
+  line-height:1.08;
   letter-spacing:-.06em;
 }
 
 .mission-text em{
   font-style:italic;
 }
+
+/* TIMELINE */
 
 .timeline-grid{
   display:grid;
@@ -359,33 +312,36 @@ body::before{
 }
 
 .month{
-  font-family:'Cormorant Garamond', serif;
-  font-size:2.4rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;
 }
 
 .arrow{
   font-size:1.2rem;
   align-self:flex-end;
-  transition:.3s;
 }
 
-.timeline-card:hover .arrow{
-  transform:translate(4px,-4px);
-}
+/* FOOTER */
 
 .footer-card{
-  background:#111;
+  background:#000;
   color:white;
+  text-align:center;
   border:none;
   padding:40px;
-  overflow:hidden;
-  text-align:center;
 }
 
 .footer-quote{
-  font-family:'Cormorant Garamond', serif;
+  font-family:'Cormorant Garamond',serif;
   font-size:clamp(1.2rem,3vw,2rem);
   margin-bottom:14px;
+}
+
+.footer-small{
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  opacity:.7;
 }
 
 .footer-links{
@@ -397,288 +353,372 @@ body::before{
 }
 
 .footer-links span{
-  opacity:.7;
-  font-size:.8rem;
-  letter-spacing:.14em;
+  opacity:.6;
+  font-size:.75rem;
+  letter-spacing:.16em;
   text-transform:uppercase;
 }
 
-.footer-small{
-  font-size:.7rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s var(--ease);
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-@keyframes heroFloat{
-from{transform:translateY(0px);} 
-to{transform:translateY(-6px);} 
-}
-
-@keyframes bgFloat{
-from{transform:translateY(0px);} 
-to{transform:translateY(-20px);} 
-}
-
-.hero-title{
-animation:heroFloat 5s ease-in-out infinite alternate;
-}
-
-.hero::after{
-content:"TIMELINE SYSTEM";
-position:absolute;
-right:-40px;
-top:45%;
-transform:rotate(90deg);
-font-size:.7rem;
-letter-spacing:.5em;
-color:rgba(0,0,0,.18);
-text-transform:uppercase;
-}
-
-.timeline-card::after{
-content:"Open Archive";
-position:absolute;
-bottom:24px;
-left:28px;
-font-size:.68rem;
-letter-spacing:.22em;
-text-transform:uppercase;
-color:#888;
-}
-
-.page-transition{
-position:fixed;
-inset:0;
-background:#000;
-z-index:2000;
-transform:translateY(100%);
-pointer-events:none;
-}
-
-.page-transition.active{
-animation:pageSlide .8s var(--ease);
-}
-
-@keyframes pageSlide{
-0%{transform:translateY(100%);} 
-50%{transform:translateY(0%);} 
-100%{transform:translateY(-100%);} 
-}
+/* MOBILE */
 
 @media(max-width:700px){
+
   .header{
-    padding:0 18px;
+    height:68px;
+    padding:0 16px;
+  }
+
+  .main-logo{
+    height:34px;
   }
 
   .hero{
-    padding:100px 22px 18px;
+    padding:100px 20px 20px;
   }
 
   .section{
-    padding:42px 22px;
+    padding:42px 20px;
   }
 
   .mission-box{
     padding:34px;
   }
+
+  .menu ul li a{
+    font-size:3rem;
+  }
+
 }
-</style></head>
+
+</style>
+</head>
+
 <body>
-<div class="page-transition" id="pageTransition"></div><header class="header">
+
+<header class="header">
+
   <a href="#" class="logo">
-  <div class="logo-wrap">
-    <img src="assets/icon.png" alt="TimelineOS Icon" class="logo-icon">
-    <img src="assets/logo.png" alt="TimelineOS" class="logo-text">
-  </div>
-</a>  <button class="menu-btn" id="menuBtn">
+    <img src="assets/logo.png" alt="TimelineOS" class="main-logo">
+  </a>
+
+  <button class="menu-btn" id="menuBtn">
+
     <div class="burger">
       <span></span>
       <span></span>
       <span></span>
     </div>
+
   </button>
-</header><div class="menu" id="menu">
-  <div style="position:absolute;top:28px;left:28px;color:white;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;opacity:.5;">
-    TimelineOS / Navigation
-  </div>
+
+</header>
+
+<div class="menu" id="menu">
+
   <ul>
     <li><a href="#">Home</a></li>
     <li><a href="#timeline">Timeline</a></li>
     <li><a href="#goals">Goals</a></li>
     <li><a href="#about">About</a></li>
   </ul>
-</div><section class="hero">
-  <div class="hero-content reveal">
-    <div class="eyebrow">A personal archive of growth</div><h1 class="hero-title">
-  Timeline<span class="os">OS</span>
-</h1>
 
-<p class="hero-sub">
-  A small internet space by Satya to save projects, random wins, experiments, failures, and moments that actually mattered.
-</p>
-
-<div class="hero-tags">
-  <div class="tag">Black & White</div>
-  <div class="tag">Creative</div>
-  <div class="tag">Minimal</div>
-  <div class="tag">Evolving</div>
 </div>
 
-  </div>
-</section><section class="section" id="about">
-  <div class="section-line"></div>  <div class="section-label">About TimelineOS</div>
-  <h2 class="section-title reveal">Not a blog. Not a portfolio.</h2>  <div class="grid">
-    <div class="card reveal">
-      <div class="card-meta">The Idea</div>
-      <h3>A public archive</h3>
-      <p>
-        TimelineOS is basically my internet memory system. A place where I can save progress, projects, lessons, random experiments, and things I don't want to forget later.
-      </p>
-    </div><div class="card reveal">
-  <div class="card-meta">The Style</div>
-  <h3>Minimal but alive</h3>
-  <p>
-    I wanted the website to feel clean and creative without looking too corporate or overdesigned.
-  </p>
-</div>
+<section class="hero">
 
-<div class="card reveal">
-  <div class="card-meta">The Goal</div>
-  <h3>Make growth visible</h3>
-  <p>
-    Hopefully after a few years this turns into a real archive of growth instead of just another abandoned project.
-  </p>
-</div>
+  <div class="hero-content">
 
-  </div>
-</section><section class="section">
-  <div class="section-line"></div>  <div class="section-label">About Me</div>
-  <h2 class="section-title reveal">Learning in public.</h2>  <div class="card reveal">
-    <div class="card-meta">Satya</div>
-    <h3>Just a student trying to build things.</h3>
-    <p>
-      I'm still learning most of this stuff while building the site. That's kind of the point of TimelineOS honestly.
+    <div class="eyebrow">
+      A personal archive of growth
+    </div>
+
+    <h1 class="hero-title">
+      Timeline<span class="os">OS</span>
+    </h1>
+
+    <p class="hero-sub">
+      A small internet space by Satya to save projects, random wins, experiments, failures, and moments that actually mattered.
     </p>
+
+    <div class="hero-tags">
+      <div class="tag">Black & White</div>
+      <div class="tag">Creative</div>
+      <div class="tag">Minimal</div>
+      <div class="tag">Evolving</div>
+    </div>
+
   </div>
-</section><section class="section" id="goals">
-  <div class="section-line"></div>  <div class="section-label">Mission</div>  <div class="card mission-box reveal">
+
+</section>
+
+<section class="section" id="about">
+
+  <div class="section-line"></div>
+
+  <div class="section-label">
+    About TimelineOS
+  </div>
+
+  <h2 class="section-title">
+    Not a blog. Not a portfolio.
+  </h2>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="card-meta">
+        The Idea
+      </div>
+
+      <h3>
+        My internet memory system
+      </h3>
+
+      <p>
+        TimelineOS is basically a place where I can save progress, projects, lessons, random experiments, and things I don't want to forget later.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-meta">
+        The Style
+      </div>
+
+      <h3>
+        Minimal but alive
+      </h3>
+
+      <p>
+        I wanted the website to feel clean and creative without looking too corporate or overdesigned.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-meta">
+        The Goal
+      </div>
+
+      <h3>
+        Make growth visible
+      </h3>
+
+      <p>
+        Hopefully after a few years this turns into a real archive of growth instead of another abandoned project.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-line"></div>
+
+  <div class="section-label">
+    About Me
+  </div>
+
+  <h2 class="section-title">
+    Learning in public.
+  </h2>
+
+  <div class="card">
+
+    <div class="card-meta">
+      Satya
+    </div>
+
+    <h3>
+      Just a student trying to build things.
+    </h3>
+
+    <p>
+      I'm still learning most of this stuff while building the site. That's honestly the point of TimelineOS.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="section" id="goals">
+
+  <div class="section-line"></div>
+
+  <div class="section-label">
+    Mission
+  </div>
+
+  <div class="card mission-box">
+
     <div class="mission-text">
       Learn deeply.<br>
       Build consistently.<br>
       <em>Document honestly.</em>
     </div>
-  </div>
-</section><section class="section">
-  <div class="section-line"></div>  <div class="section-label">Goals</div>
-  <h2 class="section-title reveal">What stays important</h2>  <div class="grid">
-    <div class="card reveal">
-      <div class="card-meta">01</div>
-      <h3>Learn Python deeply</h3>
-      <p>Not just syntax, but real problem solving and systems thinking.</p>
-    </div><div class="card reveal">
-  <div class="card-meta">02</div>
-  <h3>Build meaningful things</h3>
-  <p>Projects, tools, experiments, games, and systems that slowly improve over time.</p>
-</div>
-
-<div class="card reveal">
-  <div class="card-meta">03</div>
-  <h3>Document the journey</h3>
-  <p>Every month becomes part of the archive instead of disappearing from memory.</p>
-</div>
 
   </div>
-</section><section class="section" id="timeline">
-  <div class="section-line"></div>  <div class="section-label">Future Timeline</div>
-  <h2 class="section-title reveal">Upcoming Pages</h2>  <div class="timeline-grid">
-    <div class="card timeline-card reveal">
+
+</section>
+
+<section class="section">
+
+  <div class="section-line"></div>
+
+  <div class="section-label">
+    Goals
+  </div>
+
+  <h2 class="section-title">
+    What stays important
+  </h2>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="card-meta">
+        01
+      </div>
+
+      <h3>
+        Learn Python deeply
+      </h3>
+
+      <p>
+        Not just syntax, but real projects and problem solving.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-meta">
+        02
+      </div>
+
+      <h3>
+        Build meaningful things
+      </h3>
+
+      <p>
+        Apps, systems, games, experiments, and ideas that slowly improve over time.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-meta">
+        03
+      </div>
+
+      <h3>
+        Document the journey
+      </h3>
+
+      <p>
+        Every month becomes part of the archive instead of disappearing from memory.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="timeline">
+
+  <div class="section-line"></div>
+
+  <div class="section-label">
+    Future Timeline
+  </div>
+
+  <h2 class="section-title">
+    Upcoming Pages
+  </h2>
+
+  <div class="timeline-grid">
+
+    <div class="card timeline-card">
+
       <div>
         <div class="card-meta">2026</div>
         <div class="month">May</div>
       </div>
+
       <div class="arrow">↗</div>
-    </div><div class="card timeline-card reveal">
-  <div>
-    <div class="card-meta">2026</div>
-    <div class="month">June</div>
-  </div>
-  <div class="arrow">↗</div>
-</div>
 
-<div class="card timeline-card reveal">
-  <div>
-    <div class="card-meta">Archive</div>
-    <div class="month">TwoKTwoSix</div>
-  </div>
-  <div class="arrow">↗</div>
-</div>
+    </div>
+
+    <div class="card timeline-card">
+
+      <div>
+        <div class="card-meta">2026</div>
+        <div class="month">June</div>
+      </div>
+
+      <div class="arrow">↗</div>
+
+    </div>
+
+    <div class="card timeline-card">
+
+      <div>
+        <div class="card-meta">Archive</div>
+        <div class="month">TwoKTwoSix</div>
+      </div>
+
+      <div class="arrow">↗</div>
+
+    </div>
 
   </div>
-</section><section class="section">
-  <div class="card footer-card reveal">
+
+</section>
+
+<section class="section">
+
+  <div class="footer-card">
+
     <div class="footer-quote">
       Still building. Still learning.
-    </div><div class="footer-small">
-  Made by Satya · TimelineOS
-</div>
+    </div>
 
-<div class="footer-links">
-  <span>Archive</span>
-  <span>Projects</span>
-  <span>2026</span>
-  <span>Learning in Public</span>
-</div>
+    <div class="footer-small">
+      Made by Satya · TimelineOS
+    </div>
+
+    <div class="footer-links">
+      <span>Archive</span>
+      <span>Projects</span>
+      <span>2026</span>
+      <span>Learning in Public</span>
+    </div>
 
   </div>
-</section><script>
+
+</section>
+
+<script>
+
 const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 
-menuBtn.addEventListener('click', ()=>{
-  menuBtn.classList.toggle('active');
+menuBtn.addEventListener('click',()=>{
+
   menu.classList.toggle('active');
+
 });
 
-const reveals = document.querySelectorAll('.reveal');
-const transition = document.getElementById('pageTransition');
+</script>
 
-const links = document.querySelectorAll('a');
-
-links.forEach(link=>{
-  link.addEventListener('click',e=>{
-    const href = link.getAttribute('href');
-
-    if(href && !href.startsWith('#')){
-      e.preventDefault();
-      transition.classList.add('active');
-
-      setTimeout(()=>{
-        window.location = href;
-      },500);
-    }
-  });
-});
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('active');
-    }
-  });
-},{threshold:.12});
-
-reveals.forEach(el=>observer.observe(el));
-</script></body>
+</body>
   </html>
