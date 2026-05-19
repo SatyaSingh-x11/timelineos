@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TimelineOS</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --muted: #777777;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      position: relative;
+
+      animation: pageEnter 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+
+      background:
+        radial-gradient(circle at top left, rgba(0,0,0,0.045), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.04), transparent 32%);
+
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: -1;
+
+      background-image:
+        linear-gradient(rgba(0,0,0,0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px);
+
+      background-size: 4px 4px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ================= FLOATING GLOW ================= */
+
+    .cursor-glow {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+
+      background: radial-gradient(circle, rgba(0,0,0,0.06), transparent 70%);
+
+      pointer-events: none;
+      z-index: -1;
+
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s linear;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      position: fixed;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: calc(100% - 40px);
+      max-width: 1280px;
+
+      z-index: 1000;
+
+      background: rgba(0, 0, 0, 0.84);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+
+      box-shadow: 0 12px 50px rgba(0,0,0,0.18);
+
+      transition:
+        all 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.3s ease;
+    }
+
+    header.scrolled {
+      top: 12px;
+      transform: translateX(-50%) scale(0.985);
+
+      background: rgba(0,0,0,0.9);
+
+      box-shadow: 0 18px 60px rgba(0,0,0,0.24);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 18px 26px;
+    }
+
+    .logo-text {
+      color: white;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: -0.8px;
+
+      transition: 0.3s ease;
+    }
+
+    .logo-text:hover {
+      opacity: 0.82;
+      transform: translateY(-1px);
+    }
+
+    /* ================= MENU ================= */
+
+    .menu-wrapper {
+      position: relative;
+    }
+
+    .menu-button {
+      width: 44px;
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 300;
+
+      border-radius: 999px;
+      cursor: pointer;
+
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menu-button:hover {
+      background: rgba(255,255,255,0.12);
+      transform: scale(1.06);
+    }
+
+    .flyout-menu {
+      position: absolute;
+      top: 62px;
+      right: 0;
+
+      min-width: 220px;
+
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(28px);
+
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+
+      padding: 10px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      opacity: 0;
+      pointer-events: none;
+
+      transform: translateY(-10px) scale(0.96);
+
+      box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .flyout-menu.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .flyout-menu a {
+      color: rgba(255,255,255,0.74);
+
+      padding: 14px 16px;
+      border-radius: 14px;
+
+      font-size: 0.94rem;
+      transition: all 0.25s ease;
+    }
+
+    .flyout-menu a:hover {
+      background: rgba(255,255,255,0.06);
+      color: white;
+      transform: translateX(2px);
+    }
+
+    /* ================= PAGE SPACE ================= */
+
+    main {
+      width: 100%;
+      min-height: 220vh;
+    }
+
+    /* ================= ANIMATIONS ================= */
+
+    @keyframes pageEnter {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px) {
+      header {
+        width: calc(100% - 18px);
+        top: 12px;
+      }
+
+      .header-container {
+        padding: 16px 18px;
+      }
+
+      .flyout-menu {
+        min-width: 190px;
+      }
+    }
+  </style></head>
+<body>  <div class="cursor-glow" id="cursorGlow"></div>  <header id="header">
+    <div class="header-container"><a href="#" class="logo-text">TimelineOS</a>
+
+  <div class="menu-wrapper">
+
+    <button class="menu-button" id="menuButton" onclick="toggleMenu()">
+      ☰
+    </button>
+
+    <div class="flyout-menu" id="flyoutMenu">
+      <a href="#">Home</a>
+      <a href="#">Archive</a>
+      <a href="#">About</a>
+    </div>
+
+  </div>
+
+</div>
+
+  </header>  <main></main>  <script>
+    const menu = document.getElementById('flyoutMenu');
+    const button = document.getElementById('menuButton');
+    const glow = document.getElementById('cursorGlow');
+    const header = document.getElementById('header');
+
+    function toggleMenu() {
+      menu.classList.toggle('active');
+
+      if(menu.classList.contains('active')) {
+        button.innerHTML = '✕';
+        button.style.transform = 'rotate(90deg)';
+      } else {
+        button.innerHTML = '☰';
+        button.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    window.addEventListener('click', function(e) {
+      if (!menu.contains(e.target) && !button.contains(e.target)) {
+        menu.classList.remove('active');
+
+        button.innerHTML = '☰';
+        button.style.transform = 'rotate(0deg)';
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script></body>
+  </html>
